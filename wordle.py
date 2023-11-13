@@ -8,12 +8,12 @@ with open('5 letter list.txt', 'r') as f:
 def letter_freq(digit):
     mylist = [0]*26
     for word in wordle_list:
-        character = ord(word[digit]) -97
-        mylist[character] +=1
-    newlist=[]
+        character = ord(word[digit]) - 97
+        mylist[character] += 1
+    new_list = []
     for char in mylist:
-       newlist.append(100*char/len(wordle_list))
-    return newlist
+        new_list.append(100*char/len(wordle_list))
+    return new_list
 
 
 def remove_words(solve_state, guess):
@@ -42,27 +42,30 @@ def remove_words(solve_state, guess):
                     if guess[i] in j:
                         wordle_list.remove(j)
 
-def word_score(word, letter_freq_list):
+
+def word_score(word, concat_letter_freq):
     final_score = 0
     for character in range(5):
         letter_num = ord(word[character]) - 97
-        letter_score = letter_freq_list[character][letter_num]
+        letter_score = concat_letter_freq[character][letter_num]
         final_score += letter_score
     return final_score
 
+
 def best_word(recs):
     prev_recs = []
-    for int in range(1, recs+1):
-        best_score = 0
-        best_word = ''
+    for num in range(1, recs+1):
+        highest_score = 0
+        output_word = ''
         for word, score in wordle_dict.items():
-            if score > best_score and word not in prev_recs:
-                best_score = score
-                best_word = word
-        print("the", int, "best word is: " + best_word)
-        prev_recs.append(best_word)
+            if score > highest_score and word not in prev_recs:
+                highest_score = score
+                output_word = word
+        print("the", int, "best word is: " + output_word)
+        prev_recs.append(output_word)
 
-#y is Yellow, g is green, b is black
+
+# y is Yellow, g is green, b is black
 while True:
     letter_freq_list = [letter_freq(x) for x in range(5)]
     print(letter_freq_list)
